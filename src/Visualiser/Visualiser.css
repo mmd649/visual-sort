@@ -1,0 +1,37 @@
+.main-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.bar-container {
+  width: 100%;
+  padding-top: 2%;
+}
+
+.bar {
+  width: 15px;
+  display: inline-block;
+  margin: 0 1px;
+  background-color: darkorange;
+}
+
+.btn-container {
+  position: absolute;
+  width: 80%;
+}
+
+.btn {
+  display: inline-block;
+  margin: 5px 5px;
+  color: white;
+  background-color: deepskyblue;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.btn:hover{
+    cursor: pointer;
+    color: white;
+    background-color: darkorange;
+    transition: 0.15s;
+}

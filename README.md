@@ -1,3 +1,7 @@
+# Sorting Algorithms Visualisation
+An project to visualise sorting algorithms. This project is being worked on as I try to learn the basics of React. 
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
