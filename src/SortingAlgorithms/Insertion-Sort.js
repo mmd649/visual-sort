@@ -1,6 +1,11 @@
-export function insertionSort(array){
+export function getInsertionSortAnimation(array){
+    
+    return insertionSort(array);
+}
 
-    let animations = [];
+function insertionSort(array){
+
+    let animations = []
 
     for(let x = 1; x < array.length; x++){
 
@@ -11,11 +16,8 @@ export function insertionSort(array){
             animations.push([array.indexOf(array[y+1]), array.indexOf(array[y])]);
             array[y + 1] = array[y]
             y--;
-            animations.push([array.indexOf(array[y+1]), array.indexOf(array[y])]);
-            animations.push([array[y], array[y+1]]);
         }
         array[y+1] = temp;
-        animations.push([array[y], array[y+1]]);
     }
     return animations;
 }

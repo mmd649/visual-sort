@@ -7,10 +7,10 @@ export function bubbleSort (array){
         for(let y = 0; y < array.length - (x + 1); y++){
             
             //Change colour (Comparison)
-            animations.push([array.indexOf(array[y]), array.indexOf(array[y+1])]);
+            animations.push([y, y+1]);
 
             //Change back to default colour
-            animations.push([array.indexOf(array[y]), array.indexOf(array[y+1])]);
+            animations.push([y, y+1]);
 
             if(array[y] > array[y+1]){
                 

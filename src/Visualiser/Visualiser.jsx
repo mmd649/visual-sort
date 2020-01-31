@@ -2,17 +2,17 @@ import React from "react";
 import "./Visualiser.css";
 import { MergeSort } from "../SortingAlgorithms/Merge-Sort";
 import { bubbleSort } from "../SortingAlgorithms/Bubble-Sort";
-import { insertionSort } from "../SortingAlgorithms/Insertion-Sort";
+import { getInsertionSortAnimation } from "../SortingAlgorithms/Insertion-Sort";
 
 //Bar Generation Settings
 const minGeneratedValue = 10;
 const maxGeneratedValue = 800;
-const arrayLength = 35;
+const arrayLength = 50;
 
 //Animation Settings
 const PRIMARY_COLOUR = "darkorange";
 const SECONDARY_COLOUR = "deepskyblue";
-const ANIMATION_SPEED = 10;
+const ANIMATION_SPEED = 15;
 
 export default class Visualiser extends React.Component {
   constructor(props) {
@@ -40,15 +40,9 @@ export default class Visualiser extends React.Component {
   }
 
   /*
-    ========================================
+    ====================================
     Bubble Sort
-    ====================================================================================
-    End result is fine, but there seems to be a problem about the swapping animation.
-    Some values gets changed without being intended.
-    ====================================================================================
-    TODOS:
-      -> Look Into the problem causing the unintended value re-assignment
-
+    ====================================
    */
   bubbleSortAnimation() {
     const animations = bubbleSort(this.state.array);
@@ -92,7 +86,7 @@ export default class Visualiser extends React.Component {
   */
 
   insertionSortAnimation(){
-    const animations = insertionSort(this.state.array);
+    const animations = getInsertionSortAnimation(this.state.array);
 
     for(let x = 0; x < animations.length; x++){
 
