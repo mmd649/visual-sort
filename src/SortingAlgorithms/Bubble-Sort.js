@@ -1,4 +1,4 @@
-export function bubbleSort (array){
+export function getBubbleSortAnimation (array){
 
     let animations = [];
 

@@ -1,7 +1,7 @@
 import React from "react";
 import "./Visualiser.css";
-import { MergeSort } from "../SortingAlgorithms/Merge-Sort";
-import { bubbleSort } from "../SortingAlgorithms/Bubble-Sort";
+//import { MergeSort } from "../SortingAlgorithms/Merge-Sort";
+import { getBubbleSortAnimation } from "../SortingAlgorithms/Bubble-Sort";
 import { getInsertionSortAnimation } from "../SortingAlgorithms/Insertion-Sort";
 
 //Bar Generation Settings
@@ -12,7 +12,7 @@ const arrayLength = 50;
 //Animation Settings
 const PRIMARY_COLOUR = "darkorange";
 const SECONDARY_COLOUR = "deepskyblue";
-const ANIMATION_SPEED = 15;
+const ANIMATION_SPEED = 5;
 
 export default class Visualiser extends React.Component {
   constructor(props) {
@@ -45,11 +45,11 @@ export default class Visualiser extends React.Component {
     ====================================
    */
   bubbleSortAnimation() {
-    const animations = bubbleSort(this.state.array);
+    const animations = getBubbleSortAnimation(this.state.array);
+    const bars = document.getElementsByClassName("bar");
 
     for (let x = 0; x < animations.length; x++) {
 
-      const bars = document.getElementsByClassName("bar");
       const colorChange = x % 3 !== 2;
 
       if(colorChange){
@@ -66,11 +66,13 @@ export default class Visualiser extends React.Component {
         }, x * ANIMATION_SPEED);
 
       } else {
+
+        const [firstBarIndex, secondBarIndex] = animations[x - 1];
+        const [fbNewHeight, sbNewHeight] = animations[x];
+        const fbStyle = bars[firstBarIndex].style;
+        const sbStyle = bars[secondBarIndex].style;
+
         setTimeout(() => {
-          const [firstBarIndex, secondBarIndex] = animations[x - 1];
-          const [fbNewHeight, sbNewHeight] = animations[x];
-          const fbStyle = bars[firstBarIndex].style;
-          const sbStyle = bars[secondBarIndex].style;
           fbStyle.height = `${fbNewHeight}px`;
           sbStyle.height = `${sbNewHeight}px`;
         }, x * ANIMATION_SPEED);
@@ -86,38 +88,51 @@ export default class Visualiser extends React.Component {
   */
 
   insertionSortAnimation(){
+
     const animations = getInsertionSortAnimation(this.state.array);
+    const bars = document.getElementsByClassName("bar");
 
     for(let x = 0; x < animations.length; x++){
 
-      const bars = document.getElementsByClassName("bar");
-      const colorChange = x % 3 !== 2;
+      if(animations[x][0] === 'initialComparison' || animations[x][0] === 'secondaryComparison'){
 
-      if(colorChange){
+        const colour = animations[x][0] === 'initialComparison' ? SECONDARY_COLOUR : PRIMARY_COLOUR;
+        const firstBarIndex = animations[x][1];
+        const secondBarIndex = animations[x][2];
 
-        const [firstBarIndex, secondBarIndex] = animations[x];
-        const fbStyle = bars[firstBarIndex].style;
-        const sbStyle = bars[secondBarIndex].style;
+        const firstBarStyle = bars[firstBarIndex].style;
+        const secondBarStyle = bars[secondBarIndex].style;
+
+        setTimeout(() =>{
+
+          firstBarStyle.backgroundColor = colour;
+          secondBarStyle.backgroundColor = colour;
+
+        }, x * ANIMATION_SPEED);
+
+      } else if(animations[x][0] === 'swap') {
         
-        const colour = x % 3 === 0 ? SECONDARY_COLOUR : PRIMARY_COLOUR;
+        const barIndex = animations[x][1];
+        const barStyle = bars[barIndex].style;
 
-        setTimeout(() => {
-          fbStyle.backgroundColor = colour;
-          sbStyle.backgroundColor = colour;
+        setTimeout(() =>{
+          
+          barStyle.height = `${animations[x][2]}px`;
+
         }, x * ANIMATION_SPEED);
 
-      } else {
-        setTimeout(() => {
-          const [firstBarIndex, secondBarIndex] = animations[x - 1];
-          const [fbNewHeight, sbNewHeight] = animations[x];
-          const fbStyle = bars[firstBarIndex].style;
-          const sbStyle = bars[secondBarIndex].style;
-          fbStyle.height = `${fbNewHeight}px`;
-          sbStyle.height = `${sbNewHeight}px`;
-        }, x * ANIMATION_SPEED);
       }
-
+      
     }
+  }
+
+  /* 
+    ======================================
+    Quick Sort
+    ======================================
+  */
+
+  quickSortAnimation(){
 
   }
 
@@ -138,7 +153,7 @@ export default class Visualiser extends React.Component {
           <div className="btn" onClick={() => this.resetArray()}>Generate New Array</div>
           <div className="btn" onClick={() => this.bubbleSortAnimation()}>Bubble Sort</div>
           <div className="btn" onClick={() => this.insertionSortAnimation()}>Insertion Sort</div>
-          <div className="btn">Quick Sort</div>
+          <div className="btn" onClick={() => this.quickSortAnimation()}>Quick Sort</div>
           <div className="btn">Merge Sort</div>
         </div>
       </div>
