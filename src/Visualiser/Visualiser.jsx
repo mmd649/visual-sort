@@ -3,6 +3,7 @@ import "./Visualiser.css";
 //import { MergeSort } from "../SortingAlgorithms/Merge-Sort";
 import { getBubbleSortAnimation } from "../SortingAlgorithms/Bubble-Sort";
 import { getInsertionSortAnimation } from "../SortingAlgorithms/Insertion-Sort";
+import { getQuickSortAnimation } from "../SortingAlgorithms/Quick-Sort";
 
 //Bar Generation Settings
 const minGeneratedValue = 10;
@@ -133,6 +134,41 @@ export default class Visualiser extends React.Component {
   */
 
   quickSortAnimation(){
+
+    const animations = getQuickSortAnimation(this.state.array);
+    const bars = document.getElementsByClassName("bar");
+    
+    for(let x = 0; x < animations.length; x++){
+
+      if(animations[x][0] === 'initialComparison' || animations[x][0] === 'secondaryComparison'){
+        
+        const colour = animations[x][0] === 'initialComparison' ? SECONDARY_COLOUR : PRIMARY_COLOUR;
+        const firstBarIndex = animations[x][1];
+        const secondBarIndex = animations[x][2];
+        const firstBarStyle = bars[firstBarIndex].style;
+        const secondBarStyle = bars[secondBarIndex].style;
+
+        setTimeout(() => {
+
+          firstBarStyle.backgroundColor = colour;
+          secondBarStyle.backgroundColor = colour;
+
+        }, x * ANIMATION_SPEED);
+
+      } else if(animations[x][0] === 'swap'){
+
+        const barIndex = animations[x][1];
+        const barStyle = bars[barIndex].style;
+
+        setTimeout(() =>{
+          
+          barStyle.height = `${animations[x][2]}px`;
+
+        }, x * ANIMATION_SPEED);
+
+      }
+
+    }
 
   }
 
