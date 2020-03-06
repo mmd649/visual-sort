@@ -23,19 +23,15 @@ const arrayPartition = (arr, low, high, animations) => {
             i++;
             const temp = arr[i];
             arr[i] = arr[j];
-            animations.push(['swap', i, arr[j]]);
-
+            animations.push(['swap', i, arr[j], j, temp]);
             arr[j] = temp;
-            animations.push(['swap', j, temp]);
         }
     }
     
     //Once the position of the pivot has been found, swap the value of pivot to the value of arr[i + 1]
     const temp = arr[i+1];
     arr[i+1] = arr[high];
-    animations.push(['swap', i + 1, arr[high]]);
-
-    animations.push(['swap', high, temp]);
+    animations.push(['swap', i + 1, arr[high], high, temp]);
     arr[high] = temp;
 
     //return the correct index of the pivot.
